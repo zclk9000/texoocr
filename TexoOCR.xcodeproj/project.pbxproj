@@ -1,0 +1,546 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		CBFC929E2F78FC7F005DC5AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBFC92842F78FC7E005DC5AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBFC928B2F78FC7E005DC5AF;
+			remoteInfo = TexoOCR;
+		};
+		CBFC92A82F78FC7F005DC5AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBFC92842F78FC7E005DC5AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBFC928B2F78FC7E005DC5AF;
+			remoteInfo = TexoOCR;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CBFC928C2F78FC7E005DC5AF /* TexoOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TexoOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBFC929D2F78FC7F005DC5AF /* TexoOCRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TexoOCRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBFC92A72F78FC7F005DC5AF /* TexoOCRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TexoOCRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CBFC928E2F78FC7E005DC5AF /* TexoOCR */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TexoOCR;
+			sourceTree = "<group>";
+		};
+		CBFC92A02F78FC7F005DC5AF /* TexoOCRTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TexoOCRTests;
+			sourceTree = "<group>";
+		};
+		CBFC92AA2F78FC7F005DC5AF /* TexoOCRUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TexoOCRUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CBFC92892F78FC7E005DC5AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBFC929A2F78FC7F005DC5AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBFC92A42F78FC7F005DC5AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CBFC92832F78FC7E005DC5AF = {
+			isa = PBXGroup;
+			children = (
+				CBFC928E2F78FC7E005DC5AF /* TexoOCR */,
+				CBFC92A02F78FC7F005DC5AF /* TexoOCRTests */,
+				CBFC92AA2F78FC7F005DC5AF /* TexoOCRUITests */,
+				CBFC928D2F78FC7E005DC5AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CBFC928D2F78FC7E005DC5AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CBFC928C2F78FC7E005DC5AF /* TexoOCR.app */,
+				CBFC929D2F78FC7F005DC5AF /* TexoOCRTests.xctest */,
+				CBFC92A72F78FC7F005DC5AF /* TexoOCRUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CBFC928B2F78FC7E005DC5AF /* TexoOCR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBFC92B12F78FC7F005DC5AF /* Build configuration list for PBXNativeTarget "TexoOCR" */;
+			buildPhases = (
+				CBFC92882F78FC7E005DC5AF /* Sources */,
+				CBFC92892F78FC7E005DC5AF /* Frameworks */,
+				CBFC928A2F78FC7E005DC5AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CBFC928E2F78FC7E005DC5AF /* TexoOCR */,
+			);
+			name = TexoOCR;
+			packageProductDependencies = (
+			);
+			productName = TexoOCR;
+			productReference = CBFC928C2F78FC7E005DC5AF /* TexoOCR.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CBFC929C2F78FC7F005DC5AF /* TexoOCRTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBFC92B42F78FC7F005DC5AF /* Build configuration list for PBXNativeTarget "TexoOCRTests" */;
+			buildPhases = (
+				CBFC92992F78FC7F005DC5AF /* Sources */,
+				CBFC929A2F78FC7F005DC5AF /* Frameworks */,
+				CBFC929B2F78FC7F005DC5AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CBFC929F2F78FC7F005DC5AF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CBFC92A02F78FC7F005DC5AF /* TexoOCRTests */,
+			);
+			name = TexoOCRTests;
+			packageProductDependencies = (
+			);
+			productName = TexoOCRTests;
+			productReference = CBFC929D2F78FC7F005DC5AF /* TexoOCRTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CBFC92A62F78FC7F005DC5AF /* TexoOCRUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBFC92B72F78FC7F005DC5AF /* Build configuration list for PBXNativeTarget "TexoOCRUITests" */;
+			buildPhases = (
+				CBFC92A32F78FC7F005DC5AF /* Sources */,
+				CBFC92A42F78FC7F005DC5AF /* Frameworks */,
+				CBFC92A52F78FC7F005DC5AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CBFC92A92F78FC7F005DC5AF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CBFC92AA2F78FC7F005DC5AF /* TexoOCRUITests */,
+			);
+			name = TexoOCRUITests;
+			packageProductDependencies = (
+			);
+			productName = TexoOCRUITests;
+			productReference = CBFC92A72F78FC7F005DC5AF /* TexoOCRUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CBFC92842F78FC7E005DC5AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					CBFC928B2F78FC7E005DC5AF = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					CBFC929C2F78FC7F005DC5AF = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = CBFC928B2F78FC7E005DC5AF;
+					};
+					CBFC92A62F78FC7F005DC5AF = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = CBFC928B2F78FC7E005DC5AF;
+					};
+				};
+			};
+			buildConfigurationList = CBFC92872F78FC7E005DC5AF /* Build configuration list for PBXProject "TexoOCR" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CBFC92832F78FC7E005DC5AF;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CBFC928D2F78FC7E005DC5AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CBFC928B2F78FC7E005DC5AF /* TexoOCR */,
+				CBFC929C2F78FC7F005DC5AF /* TexoOCRTests */,
+				CBFC92A62F78FC7F005DC5AF /* TexoOCRUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CBFC928A2F78FC7E005DC5AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBFC929B2F78FC7F005DC5AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBFC92A52F78FC7F005DC5AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CBFC92882F78FC7E005DC5AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBFC92992F78FC7F005DC5AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBFC92A32F78FC7F005DC5AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CBFC929F2F78FC7F005DC5AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBFC928B2F78FC7E005DC5AF /* TexoOCR */;
+			targetProxy = CBFC929E2F78FC7F005DC5AF /* PBXContainerItemProxy */;
+		};
+		CBFC92A92F78FC7F005DC5AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBFC928B2F78FC7E005DC5AF /* TexoOCR */;
+			targetProxy = CBFC92A82F78FC7F005DC5AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CBFC92AF2F78FC7F005DC5AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CBFC92B02F78FC7F005DC5AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		CBFC92B22F78FC7F005DC5AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TexoOCR/TexoOCR.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TexoOCR/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Charlie.TexoOCR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CBFC92B32F78FC7F005DC5AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TexoOCR/TexoOCR.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TexoOCR/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Charlie.TexoOCR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CBFC92B52F78FC7F005DC5AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Charlie.TexoOCRTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TexoOCR.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TexoOCR";
+			};
+			name = Debug;
+		};
+		CBFC92B62F78FC7F005DC5AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Charlie.TexoOCRTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TexoOCR.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TexoOCR";
+			};
+			name = Release;
+		};
+		CBFC92B82F78FC7F005DC5AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Charlie.TexoOCRUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = TexoOCR;
+			};
+			name = Debug;
+		};
+		CBFC92B92F78FC7F005DC5AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Charlie.TexoOCRUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = TexoOCR;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CBFC92872F78FC7E005DC5AF /* Build configuration list for PBXProject "TexoOCR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBFC92AF2F78FC7F005DC5AF /* Debug */,
+				CBFC92B02F78FC7F005DC5AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBFC92B12F78FC7F005DC5AF /* Build configuration list for PBXNativeTarget "TexoOCR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBFC92B22F78FC7F005DC5AF /* Debug */,
+				CBFC92B32F78FC7F005DC5AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBFC92B42F78FC7F005DC5AF /* Build configuration list for PBXNativeTarget "TexoOCRTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBFC92B52F78FC7F005DC5AF /* Debug */,
+				CBFC92B62F78FC7F005DC5AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBFC92B72F78FC7F005DC5AF /* Build configuration list for PBXNativeTarget "TexoOCRUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBFC92B82F78FC7F005DC5AF /* Debug */,
+				CBFC92B92F78FC7F005DC5AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CBFC92842F78FC7E005DC5AF /* Project object */;
+}
