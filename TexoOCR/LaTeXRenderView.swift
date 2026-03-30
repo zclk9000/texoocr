@@ -22,55 +22,16 @@ struct LaTeXRenderView: NSViewRepresentable {
         return webView
     }
 
-    /// Inlined KaTeX JS, CSS (with base64 fonts) — loaded once from bundle
-    private static let katexJS: String = {
-        // Try subdirectory first (folder reference), then flat (group)
-        let url = Bundle.main.url(forResource: "katex.min", withExtension: "js", subdirectory: "katex")
-                ?? Bundle.main.url(forResource: "katex.min", withExtension: "js")
-        guard let url, let js = try? String(contentsOf: url, encoding: .utf8) else { return "" }
-        return js
-    }()
-
-    private static let katexCSS: String = {
-        let cssURL = Bundle.main.url(forResource: "katex.min", withExtension: "css", subdirectory: "katex")
-                   ?? Bundle.main.url(forResource: "katex.min", withExtension: "css")
-        guard let cssURL, var css = try? String(contentsOf: cssURL, encoding: .utf8) else { return "" }
-
-        // Find fonts directory
-        let fontsDir: URL? = {
-            if let d = Bundle.main.resourceURL?.appendingPathComponent("katex/fonts"),
-               FileManager.default.fileExists(atPath: d.path) { return d }
-            if let d = Bundle.main.resourceURL?.appendingPathComponent("fonts"),
-               FileManager.default.fileExists(atPath: d.path) { return d }
-            return nil
-        }()
-
-        // Replace font URL references with inline base64 data URIs
-        if let fontsDir {
-            let pattern = try! NSRegularExpression(pattern: #"url\(fonts/([^)]+\.woff2)\)"#)
-            while let match = pattern.firstMatch(in: css, range: NSRange(css.startIndex..., in: css)) {
-                guard let fileRange = Range(match.range(at: 1), in: css),
-                      let fullRange = Range(match.range, in: css) else { break }
-                let filename = String(css[fileRange])
-                let fontURL = fontsDir.appendingPathComponent(filename)
-                if let data = try? Data(contentsOf: fontURL) {
-                    let b64 = data.base64EncodedString()
-                    css.replaceSubrange(fullRange, with: "url(data:font/woff2;base64,\(b64))")
-                } else {
-                    // Font file missing — remove the url() so regex won't match it again
-                    css.replaceSubrange(fullRange, with: "url()")
-                }
-            }
-        }
-
-        return css
+    /// KaTeX base URL in bundle for loading CSS/JS/fonts locally
+    private static let katexBaseURL: URL? = {
+        Bundle.main.resourceURL?.appendingPathComponent("katex")
     }()
 
     func updateNSView(_ webView: WKWebView, context: Context) {
         context.coordinator.parent = self
         let processed = Self.injectDisplayStyle(latex)
         let html = buildHTML(latex: processed)
-        webView.loadHTMLString(html, baseURL: nil)
+        webView.loadHTMLString(html, baseURL: Self.katexBaseURL)
     }
 
     /// Inject \displaystyle into each line of multi-line environments
@@ -135,8 +96,8 @@ struct LaTeXRenderView: NSViewRepresentable {
         <html>
         <head>
         <meta charset="utf-8">
-        <style>\(Self.katexCSS)</style>
-        <script>\(Self.katexJS)</script>
+        <link rel="stylesheet" href="katex.min.css">
+        <script src="katex.min.js"></script>
         <style>
             * { margin: 0; padding: 0; }
             body {
