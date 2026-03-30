@@ -16,19 +16,39 @@ struct LaTeXRenderView: NSViewRepresentable {
 
     func makeNSView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
+        config.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.setValue(false, forKey: "drawsBackground")
         webView.navigationDelegate = context.coordinator
         return webView
     }
 
+    /// Directory where we symlink katex resources and write the HTML file
+    private static let renderDir: URL = {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("texo-katex")
+        let fm = FileManager.default
+        try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
+
+        // Symlink katex assets into temp dir (once)
+        if let katexURL = Bundle.main.resourceURL?.appendingPathComponent("katex") {
+            for name in ["katex.min.js", "katex.min.css", "fonts"] {
+                let dst = dir.appendingPathComponent(name)
+                if !fm.fileExists(atPath: dst.path) {
+                    try? fm.createSymbolicLink(at: dst, withDestinationURL: katexURL.appendingPathComponent(name))
+                }
+            }
+        }
+        return dir
+    }()
+
     func updateNSView(_ webView: WKWebView, context: Context) {
         context.coordinator.parent = self
         let processed = Self.injectDisplayStyle(latex)
         let html = buildHTML(latex: processed)
-        // Use katex directory as baseURL so CSS/JS/fonts load from local bundle
-        let katexURL = Bundle.main.resourceURL?.appendingPathComponent("katex")
-        webView.loadHTMLString(html, baseURL: katexURL)
+
+        let htmlFile = Self.renderDir.appendingPathComponent("render.html")
+        try? html.write(to: htmlFile, atomically: true, encoding: .utf8)
+        webView.loadFileURL(htmlFile, allowingReadAccessTo: Self.renderDir)
     }
 
     /// Inject \displaystyle into each line of multi-line environments
