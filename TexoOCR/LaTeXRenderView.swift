@@ -26,7 +26,9 @@ struct LaTeXRenderView: NSViewRepresentable {
         context.coordinator.parent = self
         let processed = Self.injectDisplayStyle(latex)
         let html = buildHTML(latex: processed)
-        webView.loadHTMLString(html, baseURL: nil)
+        // Use katex directory as baseURL so CSS/JS/fonts load from local bundle
+        let katexURL = Bundle.main.resourceURL?.appendingPathComponent("katex")
+        webView.loadHTMLString(html, baseURL: katexURL)
     }
 
     /// Inject \displaystyle into each line of multi-line environments
@@ -91,8 +93,8 @@ struct LaTeXRenderView: NSViewRepresentable {
         <html>
         <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+        <link rel="stylesheet" href="katex.min.css">
+        <script src="katex.min.js"></script>
         <style>
             * { margin: 0; padding: 0; }
             body {
