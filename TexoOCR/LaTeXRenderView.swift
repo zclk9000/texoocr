@@ -23,18 +23,21 @@ struct LaTeXRenderView: NSViewRepresentable {
         return webView
     }
 
-    /// Directory where we symlink katex resources and write the HTML file
+    /// Directory with copied katex resources for WKWebView file access
     private static let renderDir: URL = {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("texo-katex")
         let fm = FileManager.default
-        try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
 
-        // Symlink katex assets into temp dir (once)
-        if let katexURL = Bundle.main.resourceURL?.appendingPathComponent("katex") {
-            for name in ["katex.min.js", "katex.min.css", "fonts"] {
-                let dst = dir.appendingPathComponent(name)
-                if !fm.fileExists(atPath: dst.path) {
-                    try? fm.createSymbolicLink(at: dst, withDestinationURL: katexURL.appendingPathComponent(name))
+        // Only copy once per launch
+        if !fm.fileExists(atPath: dir.appendingPathComponent("katex.min.js").path) {
+            try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
+            if let katexURL = Bundle.main.resourceURL?.appendingPathComponent("katex") {
+                for name in ["katex.min.js", "katex.min.css"] {
+                    try? fm.copyItem(at: katexURL.appendingPathComponent(name), to: dir.appendingPathComponent(name))
+                }
+                let fontsDir = dir.appendingPathComponent("fonts")
+                if !fm.fileExists(atPath: fontsDir.path) {
+                    try? fm.copyItem(at: katexURL.appendingPathComponent("fonts"), to: fontsDir)
                 }
             }
         }
