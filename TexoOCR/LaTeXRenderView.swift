@@ -27,21 +27,14 @@ struct LaTeXRenderView: NSViewRepresentable {
         // Try subdirectory first (folder reference), then flat (group)
         let url = Bundle.main.url(forResource: "katex.min", withExtension: "js", subdirectory: "katex")
                 ?? Bundle.main.url(forResource: "katex.min", withExtension: "js")
-        guard let url, let js = try? String(contentsOf: url, encoding: .utf8) else {
-            print("[KaTeX] ERROR: katex.min.js not found in bundle")
-            return ""
-        }
-        print("[KaTeX] Loaded JS: \(js.count) chars")
+        guard let url, let js = try? String(contentsOf: url, encoding: .utf8) else { return "" }
         return js
     }()
 
     private static let katexCSS: String = {
         let cssURL = Bundle.main.url(forResource: "katex.min", withExtension: "css", subdirectory: "katex")
                    ?? Bundle.main.url(forResource: "katex.min", withExtension: "css")
-        guard let cssURL, var css = try? String(contentsOf: cssURL, encoding: .utf8) else {
-            print("[KaTeX] ERROR: katex.min.css not found in bundle")
-            return ""
-        }
+        guard let cssURL, var css = try? String(contentsOf: cssURL, encoding: .utf8) else { return "" }
 
         // Find fonts directory
         let fontsDir: URL? = {
@@ -69,7 +62,6 @@ struct LaTeXRenderView: NSViewRepresentable {
             }
         }
 
-        print("[KaTeX] Loaded CSS: \(css.count) chars")
         return css
     }()
 
