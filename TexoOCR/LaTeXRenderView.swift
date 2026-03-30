@@ -24,35 +24,53 @@ struct LaTeXRenderView: NSViewRepresentable {
 
     /// Inlined KaTeX JS, CSS (with base64 fonts) — loaded once from bundle
     private static let katexJS: String = {
-        guard let url = Bundle.main.url(forResource: "katex.min", withExtension: "js", subdirectory: "katex"),
-              let js = try? String(contentsOf: url, encoding: .utf8) else { return "" }
+        // Try subdirectory first (folder reference), then flat (group)
+        let url = Bundle.main.url(forResource: "katex.min", withExtension: "js", subdirectory: "katex")
+                ?? Bundle.main.url(forResource: "katex.min", withExtension: "js")
+        guard let url, let js = try? String(contentsOf: url, encoding: .utf8) else {
+            print("[KaTeX] ERROR: katex.min.js not found in bundle")
+            return ""
+        }
+        print("[KaTeX] Loaded JS: \(js.count) chars")
         return js
     }()
 
     private static let katexCSS: String = {
-        guard let katexDir = Bundle.main.resourceURL?.appendingPathComponent("katex"),
-              let cssURL = Bundle.main.url(forResource: "katex.min", withExtension: "css", subdirectory: "katex"),
-              var css = try? String(contentsOf: cssURL, encoding: .utf8) else { return "" }
+        let cssURL = Bundle.main.url(forResource: "katex.min", withExtension: "css", subdirectory: "katex")
+                   ?? Bundle.main.url(forResource: "katex.min", withExtension: "css")
+        guard let cssURL, var css = try? String(contentsOf: cssURL, encoding: .utf8) else {
+            print("[KaTeX] ERROR: katex.min.css not found in bundle")
+            return ""
+        }
+
+        // Find fonts directory
+        let fontsDir: URL? = {
+            if let d = Bundle.main.resourceURL?.appendingPathComponent("katex/fonts"),
+               FileManager.default.fileExists(atPath: d.path) { return d }
+            if let d = Bundle.main.resourceURL?.appendingPathComponent("fonts"),
+               FileManager.default.fileExists(atPath: d.path) { return d }
+            return nil
+        }()
 
         // Replace font URL references with inline base64 data URIs
-        let fontsDir = katexDir.appendingPathComponent("fonts")
-        let pattern = try! NSRegularExpression(pattern: #"url\(fonts/([^)]+\.woff2)\)"#)
-        let range = NSRange(css.startIndex..., in: css)
-        var result = css
-        for match in pattern.matches(in: css, range: range).reversed() {
-            guard let fileRange = Range(match.range(at: 1), in: css) else { continue }
-            let filename = String(css[fileRange])
-            let fontURL = fontsDir.appendingPathComponent(filename)
-            if let data = try? Data(contentsOf: fontURL) {
-                let b64 = data.base64EncodedString()
-                let dataURI = "url(data:font/woff2;base64,\(b64))"
-                let fullRange = Range(match.range, in: css)!
-                result.replaceSubrange(fullRange, with: dataURI)
-                // Work on the updated string for subsequent replacements
-                css = result
+        if let fontsDir {
+            let pattern = try! NSRegularExpression(pattern: #"url\(fonts/([^)]+\.woff2)\)"#)
+            while let match = pattern.firstMatch(in: css, range: NSRange(css.startIndex..., in: css)) {
+                guard let fileRange = Range(match.range(at: 1), in: css),
+                      let fullRange = Range(match.range, in: css) else { break }
+                let filename = String(css[fileRange])
+                let fontURL = fontsDir.appendingPathComponent(filename)
+                if let data = try? Data(contentsOf: fontURL) {
+                    let b64 = data.base64EncodedString()
+                    css.replaceSubrange(fullRange, with: "url(data:font/woff2;base64,\(b64))")
+                } else {
+                    break // avoid infinite loop if font file missing
+                }
             }
         }
-        return result
+
+        print("[KaTeX] Loaded CSS: \(css.count) chars")
+        return css
     }()
 
     func updateNSView(_ webView: WKWebView, context: Context) {
