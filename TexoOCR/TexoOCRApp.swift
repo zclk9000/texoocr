@@ -1,17 +1,34 @@
-//
-//  TexoOCRApp.swift
-//  TexoOCR
-//
-//  Created by charlie on 2026/3/29.
-//
-
 import SwiftUI
 
 @main
 struct TexoOCRApp: App {
+    @StateObject private var appState = AppState()
+    @ObservedObject private var localization = LocalizationManager.shared
+
+    init() {}
+
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        MenuBarExtra {
+            MenuBarView()
+                .environmentObject(appState)
+                .id(localization.bundle)
+        } label: {
+            Image(systemName: appState.isProcessing ? "sparkle.magnifyingglass" : "x.squareroot")
+                .symbolRenderingMode(.hierarchical)
+        }
+        .menuBarExtraStyle(.window)
+
+        Settings {
+            SettingsView()
+                .environmentObject(appState)
+                .id(localization.bundle)
+        }
+
+        Window(L.historyTitle, id: "history") {
+            HistoryView()
+                .environmentObject(appState)
+                .frame(minWidth: 700, minHeight: 500)
+                .id(localization.bundle)
         }
     }
 }

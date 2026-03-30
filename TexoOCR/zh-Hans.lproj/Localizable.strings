@@ -1,0 +1,52 @@
+/* Status */
+"status.ready" = "就绪";
+"status.recognizing" = "识别中...";
+"status.engineFailed" = "引擎加载失败";
+
+/* Menu Bar */
+"menu.captureFormula" = "捕获公式";
+"menu.importImage" = "导入图片...";
+"menu.recent" = "最近识别";
+"menu.showAllHistory" = "查看全部历史...";
+"menu.noResults" = "暂无结果 — 使用上方捕获或导入";
+"menu.autoDetect" = "自动侦测剪贴板";
+"menu.settings" = "设置...";
+"menu.quit" = "退出";
+
+/* History */
+"history.capturedImage" = "截图";
+"history.renderedFormula" = "公式预览";
+"history.latexSource" = "LaTeX 代码";
+"history.copy" = "复制";
+"history.clearAll" = "清空全部";
+"history.selectItem" = "选择一项以查看详情";
+"history.items" = "项";
+
+/* Settings */
+"settings.general" = "通用";
+"settings.about" = "关于";
+"settings.capture" = "捕获";
+"settings.globalShortcut" = "全局快捷键";
+"settings.pressShortcut" = "按下快捷键...";
+"settings.clipboardMonitoring" = "剪贴板监听";
+"settings.autoDetectClipboard" = "自动检测剪贴板中的公式图片";
+"settings.notifications" = "通知";
+"settings.showNotifications" = "显示系统通知";
+"settings.history" = "历史记录";
+"settings.maxHistory" = "最大历史条数";
+"settings.system" = "系统";
+"settings.launchAtLogin" = "登录时启动";
+"settings.language" = "语言";
+
+/* History extra */
+"history.searchPrompt" = "搜索 LaTeX...";
+"history.copyInline" = "复制 $...$";
+"history.copyDisplay" = "复制 $$...$$";
+"history.copyParens" = "复制 \\(...\\)";
+"history.title" = "历史记录";
+"history.save" = "保存";
+"history.revert" = "还原";
+
+/* Import */
+"import.selectFormulaImage" = "选择包含数学公式的图片";
+"import.couldNotLoad" = "无法加载图片";

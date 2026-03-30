@@ -1,0 +1,52 @@
+/* Status */
+"status.ready" = "Ready";
+"status.recognizing" = "Recognizing...";
+"status.engineFailed" = "Engine failed";
+
+/* Menu Bar */
+"menu.captureFormula" = "Capture Formula";
+"menu.importImage" = "Import Image...";
+"menu.recent" = "Recent";
+"menu.showAllHistory" = "Show All History...";
+"menu.noResults" = "No results yet — use Capture or Import above";
+"menu.autoDetect" = "Auto-detect clipboard";
+"menu.settings" = "Settings...";
+"menu.quit" = "Quit";
+
+/* History */
+"history.capturedImage" = "Captured Image";
+"history.renderedFormula" = "Rendered Formula";
+"history.latexSource" = "LaTeX Source";
+"history.copy" = "Copy";
+"history.clearAll" = "Clear All";
+"history.selectItem" = "Select an item to view details";
+"history.items" = "items";
+
+/* Settings */
+"settings.general" = "General";
+"settings.about" = "About";
+"settings.capture" = "Capture";
+"settings.globalShortcut" = "Global Shortcut";
+"settings.pressShortcut" = "Press shortcut...";
+"settings.clipboardMonitoring" = "Clipboard Monitoring";
+"settings.autoDetectClipboard" = "Auto-detect formula images from clipboard";
+"settings.notifications" = "Notifications";
+"settings.showNotifications" = "Show system notifications";
+"settings.history" = "History";
+"settings.maxHistory" = "Max history items";
+"settings.system" = "System";
+"settings.launchAtLogin" = "Launch at login";
+"settings.language" = "Language";
+
+/* History extra */
+"history.searchPrompt" = "Search LaTeX...";
+"history.copyInline" = "Copy $...$";
+"history.copyDisplay" = "Copy $$...$$";
+"history.copyParens" = "Copy \\(...\\)";
+"history.title" = "History";
+"history.save" = "Save";
+"history.revert" = "Revert";
+
+/* Import */
+"import.selectFormulaImage" = "Select an image containing a math formula";
+"import.couldNotLoad" = "Could not load image";
