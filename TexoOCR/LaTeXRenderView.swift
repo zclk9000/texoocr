@@ -57,7 +57,8 @@ struct LaTeXRenderView: NSViewRepresentable {
                     let b64 = data.base64EncodedString()
                     css.replaceSubrange(fullRange, with: "url(data:font/woff2;base64,\(b64))")
                 } else {
-                    break // avoid infinite loop if font file missing
+                    // Font file missing — remove the url() so regex won't match it again
+                    css.replaceSubrange(fullRange, with: "url()")
                 }
             }
         }
