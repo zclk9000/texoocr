@@ -22,16 +22,27 @@ struct LaTeXRenderView: NSViewRepresentable {
         return webView
     }
 
-    /// KaTeX base URL in bundle for loading CSS/JS/fonts locally
-    private static let katexBaseURL: URL? = {
-        Bundle.main.resourceURL?.appendingPathComponent("katex")
+    /// KaTeX JS and CSS with base64-inlined fonts, loaded once from bundle
+    private static let katexJS: String = {
+        let url = Bundle.main.url(forResource: "katex.min", withExtension: "js", subdirectory: "katex")
+                ?? Bundle.main.url(forResource: "katex.min", withExtension: "js")
+        guard let url, let s = try? String(contentsOf: url, encoding: .utf8) else { return "" }
+        return s
+    }()
+
+    private static let katexCSS: String = {
+        // Use pre-processed CSS with base64-inlined fonts
+        let url = Bundle.main.url(forResource: "katex.inlined", withExtension: "css", subdirectory: "katex")
+                ?? Bundle.main.url(forResource: "katex.inlined", withExtension: "css")
+        guard let url, let s = try? String(contentsOf: url, encoding: .utf8) else { return "" }
+        return s
     }()
 
     func updateNSView(_ webView: WKWebView, context: Context) {
         context.coordinator.parent = self
         let processed = Self.injectDisplayStyle(latex)
         let html = buildHTML(latex: processed)
-        webView.loadHTMLString(html, baseURL: Self.katexBaseURL)
+        webView.loadHTMLString(html, baseURL: nil)
     }
 
     /// Inject \displaystyle into each line of multi-line environments
@@ -96,8 +107,8 @@ struct LaTeXRenderView: NSViewRepresentable {
         <html>
         <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="katex.min.css">
-        <script src="katex.min.js"></script>
+        <style>\(Self.katexCSS)</style>
+        <script>\(Self.katexJS)</script>
         <style>
             * { margin: 0; padding: 0; }
             body {
