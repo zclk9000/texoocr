@@ -51,14 +51,72 @@ class OCREngine: @unchecked Sendable {
             throw OCRError.invalidImage
         }
 
+        // 0. Invert if dark background (model expects white bg / dark text)
+        let normalized = ensureLightBackground(cgImage)
+
         // 1. Crop white margins
-        let cropped = cropMargin(cgImage)
+        let cropped = cropMargin(normalized)
 
         // 2. Resize maintaining aspect ratio with black padding
         let resized = resizeWithPadding(cropped, targetSize: imageSize)
 
         // 3. Convert to grayscale and normalize as 3-channel
         return extractGrayscale3Channel(resized)
+    }
+
+    /// Detect dark background and invert if needed.
+    /// Model expects white background (mean ≈ 0.79), so dark bg produces garbage.
+    private func ensureLightBackground(_ image: CGImage) -> CGImage {
+        let w = image.width
+        let h = image.height
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let count = w * h
+
+        var grayPixels = [UInt8](repeating: 0, count: count)
+        guard let context = CGContext(
+            data: &grayPixels, width: w, height: h,
+            bitsPerComponent: 8, bytesPerRow: w,
+            space: colorSpace, bitmapInfo: 0
+        ) else { return image }
+        context.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
+
+        // Sample corners and edges to determine background brightness
+        let sampleSize = min(20, min(w, h) / 4)
+        var sum: Int = 0
+        var sampleCount = 0
+        // Top-left, top-right, bottom-left, bottom-right corners
+        for y in 0..<sampleSize {
+            for x in 0..<sampleSize {
+                sum += Int(grayPixels[y * w + x])                           // top-left
+                sum += Int(grayPixels[y * w + (w - 1 - x)])                 // top-right
+                sum += Int(grayPixels[(h - 1 - y) * w + x])                 // bottom-left
+                sum += Int(grayPixels[(h - 1 - y) * w + (w - 1 - x)])       // bottom-right
+                sampleCount += 4
+            }
+        }
+        let avgBg = Float(sum) / Float(sampleCount)
+
+        // If background is dark (< 128), invert the entire image
+        guard avgBg < 128 else { return image }
+
+        // Invert in RGB space to preserve color info for subsequent steps
+        let rgbSpace = CGColorSpaceCreateDeviceRGB()
+        var rgbPixels = [UInt8](repeating: 0, count: w * h * 4)
+        guard let rgbCtx = CGContext(
+            data: &rgbPixels, width: w, height: h,
+            bitsPerComponent: 8, bytesPerRow: w * 4,
+            space: rgbSpace,
+            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+        ) else { return image }
+        rgbCtx.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
+
+        for i in 0..<(w * h) {
+            rgbPixels[i * 4] = 255 - rgbPixels[i * 4]         // R
+            rgbPixels[i * 4 + 1] = 255 - rgbPixels[i * 4 + 1] // G
+            rgbPixels[i * 4 + 2] = 255 - rgbPixels[i * 4 + 2] // B
+        }
+
+        return rgbCtx.makeImage() ?? image
     }
 
     /// Matches Python: crop_margin()
