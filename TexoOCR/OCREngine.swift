@@ -58,10 +58,10 @@ class OCREngine: @unchecked Sendable {
         let cropped = cropMargin(normalized)
 
         // 2. Resize maintaining aspect ratio with black padding
-        let resized = resizeWithPadding(cropped, targetSize: imageSize)
+        let resized = try resizeWithPadding(cropped, targetSize: imageSize)
 
         // 3. Convert to grayscale and normalize as 3-channel
-        return extractGrayscale3Channel(resized)
+        return try extractGrayscale3Channel(resized)
     }
 
     /// Detect dark background and invert if needed.
@@ -168,7 +168,7 @@ class OCREngine: @unchecked Sendable {
     /// Step 1: Resize so shorter side = targetSize (may upscale)
     /// Step 2: Thumbnail to fit within targetSize x targetSize (only downscale)
     /// Step 3: Center pad with black to exact targetSize x targetSize
-    private func resizeWithPadding(_ image: CGImage, targetSize: Int) -> CGImage {
+    private func resizeWithPadding(_ image: CGImage, targetSize: Int) throws -> CGImage {
         let srcW = CGFloat(image.width)
         let srcH = CGFloat(image.height)
         let target = CGFloat(targetSize)
@@ -185,12 +185,12 @@ class OCREngine: @unchecked Sendable {
 
         // Resize in RGB
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(
+        guard let context = CGContext(
             data: nil, width: targetSize, height: targetSize,
             bitsPerComponent: 8, bytesPerRow: targetSize * 4,
             space: colorSpace,
             bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
-        )!
+        ) else { throw OCRError.invalidImage }
 
         // Black background (zero-initialized), center the image
         let offsetX = (targetSize - newW) / 2
@@ -198,22 +198,23 @@ class OCREngine: @unchecked Sendable {
         context.interpolationQuality = .high
         context.draw(image, in: CGRect(x: offsetX, y: offsetY, width: newW, height: newH))
 
-        return context.makeImage()!
+        guard let result = context.makeImage() else { throw OCRError.invalidImage }
+        return result
     }
 
-    private func extractGrayscale3Channel(_ image: CGImage) -> [Float] {
+    private func extractGrayscale3Channel(_ image: CGImage) throws -> [Float] {
         let w = image.width
         let h = image.height
 
         // Read RGB pixels
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         var rawPixels = [UInt8](repeating: 0, count: w * h * 4)
-        let context = CGContext(
+        guard let context = CGContext(
             data: &rawPixels, width: w, height: h,
             bitsPerComponent: 8, bytesPerRow: w * 4,
             space: colorSpace,
             bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
-        )!
+        ) else { throw OCRError.invalidImage }
         context.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
 
         // Convert to grayscale using OpenCV/BT.601 coefficients (matches Python pipeline)

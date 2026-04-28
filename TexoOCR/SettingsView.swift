@@ -173,6 +173,7 @@ class ShortcutCaptureView: NSView {
 
 struct AboutView: View {
     @State private var showPrivacyPolicy = false
+    @State private var showLicenses = false
 
     var body: some View {
         VStack(spacing: 14) {
@@ -189,7 +190,7 @@ struct AboutView: View {
                 .font(.system(size: 12))
                 .foregroundStyle(.secondary)
 
-            Text("v1.0.0")
+            Text("v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")")
                 .font(.system(size: 11, design: .monospaced))
                 .foregroundStyle(.tertiary)
 
@@ -197,13 +198,19 @@ struct AboutView: View {
 
             VStack(spacing: 4) {
                 Label("FormulaNet", systemImage: "brain")
-                Label("ONNX Runtime", systemImage: "cpu")
+                Label("ONNX Runtime (MIT)", systemImage: "cpu")
+                Label("KaTeX (MIT)", systemImage: "function")
             }
             .font(.system(size: 11))
             .foregroundStyle(.secondary)
 
-            Button(L.privacyPolicy) {
-                showPrivacyPolicy = true
+            HStack(spacing: 16) {
+                Button(L.privacyPolicy) {
+                    showPrivacyPolicy = true
+                }
+                Button(L.licenses) {
+                    showLicenses = true
+                }
             }
             .font(.system(size: 11))
             .buttonStyle(.plain)
@@ -215,6 +222,9 @@ struct AboutView: View {
         .padding()
         .sheet(isPresented: $showPrivacyPolicy) {
             PrivacyPolicyView()
+        }
+        .sheet(isPresented: $showLicenses) {
+            LicensesView()
         }
     }
 }
@@ -268,5 +278,71 @@ struct PrivacyPolicyView: View {
             }
         }
         .frame(width: 420, height: 400)
+    }
+}
+
+struct LicensesView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text(L.licenses)
+                    .font(.headline)
+                Spacer()
+                Button { dismiss() } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.secondary)
+                        .font(.title2)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding()
+
+            Divider()
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    licenseSection(
+                        name: "ONNX Runtime",
+                        url: "https://github.com/microsoft/onnxruntime",
+                        license: "MIT License\nCopyright (c) Microsoft Corporation.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software."
+                    )
+
+                    Divider()
+
+                    licenseSection(
+                        name: "KaTeX",
+                        url: "https://github.com/KaTeX/KaTeX",
+                        license: "MIT License\nCopyright (c) 2013-2020 Khan Academy and other contributors.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software."
+                    )
+
+                    Divider()
+
+                    licenseSection(
+                        name: "FormulaNet",
+                        url: "https://github.com/Texo-AI/FormulaNet",
+                        license: "Model weights used for formula recognition.\nSee project repository for license details."
+                    )
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .frame(width: 460, height: 420)
+    }
+
+    private func licenseSection(name: String, url: String, license: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(name)
+                .font(.system(size: 13, weight: .semibold))
+            Text(url)
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundStyle(.secondary)
+            Text(license)
+                .font(.system(size: 11))
+                .foregroundStyle(.secondary)
+                .textSelection(.enabled)
+        }
     }
 }

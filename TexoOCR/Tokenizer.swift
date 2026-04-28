@@ -6,9 +6,11 @@ class Tokenizer {
 
     init(path: String) throws {
         let data = try Data(contentsOf: URL(fileURLWithPath: path))
-        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
-        let model = json["model"] as! [String: Any]
-        let vocab = model["vocab"] as! [String: Int]
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let model = json["model"] as? [String: Any],
+              let vocab = model["vocab"] as? [String: Int] else {
+            throw NSError(domain: "Tokenizer", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid tokenizer.json format"])
+        }
 
         // Detect tokenizer type
         let modelType = model["type"] as? String ?? ""

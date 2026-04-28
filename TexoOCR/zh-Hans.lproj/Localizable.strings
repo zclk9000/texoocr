@@ -62,6 +62,13 @@
 "privacy.local" = "识别历史（截取的图片及 LaTeX 结果）存储在应用的沙盒容器中。偏好设置通过 macOS UserDefaults 存储。这些数据不会离开您的设备。您可以随时清除历史记录。";
 "privacy.contactTitle" = "联系方式";
 
+/* Accessibility */
+"accessibility.required" = "需要辅助功能权限以进行截图";
+"accessibility.grant" = "授权";
+
+/* About */
+"about.licenses" = "开源许可";
+
 /* Import */
 "import.selectFormulaImage" = "选择包含数学公式的图片";
 "import.couldNotLoad" = "无法加载图片";

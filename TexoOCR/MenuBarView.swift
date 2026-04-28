@@ -25,6 +25,33 @@ struct MenuBarView: View {
 
             Divider().padding(.horizontal, 8)
 
+            // Accessibility warning
+            if !ScreenCaptureService.isAccessibilityGranted {
+                Button {
+                    ScreenCaptureService.requestAccessibility()
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.orange)
+                            .font(.system(size: 12))
+                        Text(L.accessibilityRequired)
+                            .font(.system(size: 11))
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        Text(L.grant)
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(.blue)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(.orange.opacity(0.08))
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+
+                Divider().padding(.horizontal, 8)
+            }
+
             // Actions
             VStack(spacing: 2) {
                 MenuButton(

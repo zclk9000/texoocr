@@ -91,6 +91,13 @@ enum L {
     static var privacyLocal: String { NSLocalizedString("privacy.local", bundle: b, comment: "") }
     static var privacyContactTitle: String { NSLocalizedString("privacy.contactTitle", bundle: b, comment: "") }
 
+    // MARK: - Accessibility
+    static var accessibilityRequired: String { NSLocalizedString("accessibility.required", bundle: b, comment: "") }
+    static var grant: String { NSLocalizedString("accessibility.grant", bundle: b, comment: "") }
+
+    // MARK: - About
+    static var licenses: String { NSLocalizedString("about.licenses", bundle: b, comment: "") }
+
     // MARK: - Import
     static var selectFormulaImage: String { NSLocalizedString("import.selectFormulaImage", bundle: b, comment: "") }
     static var couldNotLoad: String { NSLocalizedString("import.couldNotLoad", bundle: b, comment: "") }

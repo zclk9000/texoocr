@@ -7,16 +7,35 @@ class ScreenCaptureService {
     enum CaptureError: LocalizedError {
         case cancelled
         case noImage
+        case accessibilityDenied
 
         var errorDescription: String? {
             switch self {
             case .cancelled: return "Screen capture was cancelled"
             case .noImage: return "No image found after capture"
+            case .accessibilityDenied: return "Accessibility permission required"
             }
         }
     }
 
+    /// Check if Accessibility permission is granted
+    static var isAccessibilityGranted: Bool {
+        AXIsProcessTrusted()
+    }
+
+    /// Prompt user to grant Accessibility permission
+    static func requestAccessibility() {
+        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
+        AXIsProcessTrustedWithOptions(options)
+    }
+
     func captureRegion() async throws -> NSImage {
+        // Check Accessibility permission first
+        guard Self.isAccessibilityGranted else {
+            Self.requestAccessibility()
+            throw CaptureError.accessibilityDenied
+        }
+
         let beforeCount = NSPasteboard.general.changeCount
 
         // Simulate Cmd+Shift+Ctrl+4 to trigger system screenshot to clipboard

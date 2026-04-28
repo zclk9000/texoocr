@@ -17,7 +17,8 @@ struct LaTeXRenderView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         let webView = WKWebView(frame: .zero, configuration: config)
-        webView.setValue(false, forKey: "drawsBackground")
+        webView.isOpaque = false
+        webView.underPageBackgroundColor = .clear
         webView.navigationDelegate = context.coordinator
         return webView
     }
