@@ -46,6 +46,11 @@
 "history.title" = "历史记录";
 "history.save" = "保存";
 "history.revert" = "还原";
+"history.ago" = "前";
+"history.daysAgo" = "天前";
+
+/* Notifications */
+"notification.recognized" = "公式识别完成";
 
 /* Import */
 "import.selectFormulaImage" = "选择包含数学公式的图片";

@@ -46,6 +46,11 @@
 "history.title" = "History";
 "history.save" = "Save";
 "history.revert" = "Revert";
+"history.ago" = "ago";
+"history.daysAgo" = "day(s) ago";
+
+/* Notifications */
+"notification.recognized" = "LaTeX Recognized";
 
 /* Import */
 "import.selectFormulaImage" = "Select an image containing a math formula";

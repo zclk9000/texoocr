@@ -58,6 +58,11 @@ enum L {
     static var copyParens: String { NSLocalizedString("history.copyParens", bundle: b, comment: "") }
     static var save: String { NSLocalizedString("history.save", bundle: b, comment: "") }
     static var revert: String { NSLocalizedString("history.revert", bundle: b, comment: "") }
+    static var ago: String { NSLocalizedString("history.ago", bundle: b, comment: "") }
+    static var daysAgo: String { NSLocalizedString("history.daysAgo", bundle: b, comment: "") }
+
+    // MARK: - Notifications
+    static var latexRecognized: String { NSLocalizedString("notification.recognized", bundle: b, comment: "") }
     static var historyTitle: String { NSLocalizedString("history.title", bundle: b, comment: "") }
 
     // MARK: - Settings

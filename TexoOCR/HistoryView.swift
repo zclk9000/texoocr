@@ -163,19 +163,19 @@ struct HistoryView: View {
         let interval = Date().timeIntervalSince(date)
 
         if interval < 60 {
-            return "\(Int(interval))s ago"
+            return "\(Int(interval))s \(L.ago)"
         } else if interval < 3600 {
             let m = Int(interval / 60)
             let s = Int(interval) % 60
-            return String(format: "%d:%02d ago", m, s)
+            return String(format: "%d:%02d \(L.ago)", m, s)
         } else if interval < 86400 {
             let h = Int(interval / 3600)
             let m = Int(interval / 60) % 60
             let s = Int(interval) % 60
-            return String(format: "%d:%02d:%02d ago", h, m, s)
+            return String(format: "%d:%02d:%02d \(L.ago)", h, m, s)
         } else {
             let days = Int(interval / 86400)
-            return days == 1 ? "1 day ago" : "\(days) days ago"
+            return "\(days) \(L.daysAgo)"
         }
     }
 }

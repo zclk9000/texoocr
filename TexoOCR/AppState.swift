@@ -237,7 +237,7 @@ class AppState: ObservableObject {
 
     private func sendNotification(latex: String) {
         let content = UNMutableNotificationContent()
-        content.title = "LaTeX Recognized"
+        content.title = L.latexRecognized
         content.body = String(latex.prefix(80))
         content.sound = .default
 
