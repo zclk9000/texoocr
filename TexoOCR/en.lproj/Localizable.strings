@@ -52,6 +52,16 @@
 /* Notifications */
 "notification.recognized" = "LaTeX Recognized";
 
+/* Privacy Policy */
+"privacy.title" = "Privacy Policy";
+"privacy.overviewTitle" = "Overview";
+"privacy.overview" = "TexoOCR is a macOS menu bar app that recognizes mathematical formulas from images and converts them to LaTeX. All image processing and formula recognition happens entirely on your device.";
+"privacy.dataTitle" = "Data Collection";
+"privacy.data" = "TexoOCR does not collect, transmit, or store any personal data. No images, LaTeX results, or usage data are ever sent to any server. The app does not use analytics, tracking, or advertising frameworks. No account or login is required.";
+"privacy.localTitle" = "Local Data";
+"privacy.local" = "Recognition history (captured images and LaTeX results) is stored locally in the app's sandboxed container. Your preferences are stored via macOS UserDefaults. This data never leaves your device. You can clear history at any time.";
+"privacy.contactTitle" = "Contact";
+
 /* Import */
 "import.selectFormulaImage" = "Select an image containing a math formula";
 "import.couldNotLoad" = "Could not load image";

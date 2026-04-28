@@ -52,6 +52,16 @@
 /* Notifications */
 "notification.recognized" = "公式识别完成";
 
+/* Privacy Policy */
+"privacy.title" = "隐私政策";
+"privacy.overviewTitle" = "概述";
+"privacy.overview" = "TexoOCR 是一款 macOS 菜单栏应用，用于识别图片中的数学公式并转换为 LaTeX。所有图片处理和公式识别均完全在您的设备上完成。";
+"privacy.dataTitle" = "数据收集";
+"privacy.data" = "TexoOCR 不收集、不传输、不存储任何个人数据。没有任何图片、LaTeX 结果或使用数据被发送到任何服务器。应用不使用任何分析、追踪或广告框架，不需要账户或登录。";
+"privacy.localTitle" = "本地数据";
+"privacy.local" = "识别历史（截取的图片及 LaTeX 结果）存储在应用的沙盒容器中。偏好设置通过 macOS UserDefaults 存储。这些数据不会离开您的设备。您可以随时清除历史记录。";
+"privacy.contactTitle" = "联系方式";
+
 /* Import */
 "import.selectFormulaImage" = "选择包含数学公式的图片";
 "import.couldNotLoad" = "无法加载图片";

@@ -81,6 +81,16 @@ enum L {
     static var launchAtLogin: String { NSLocalizedString("settings.launchAtLogin", bundle: b, comment: "") }
     static var language: String { NSLocalizedString("settings.language", bundle: b, comment: "") }
 
+    // MARK: - Privacy Policy
+    static var privacyPolicy: String { NSLocalizedString("privacy.title", bundle: b, comment: "") }
+    static var privacyOverviewTitle: String { NSLocalizedString("privacy.overviewTitle", bundle: b, comment: "") }
+    static var privacyOverview: String { NSLocalizedString("privacy.overview", bundle: b, comment: "") }
+    static var privacyDataTitle: String { NSLocalizedString("privacy.dataTitle", bundle: b, comment: "") }
+    static var privacyData: String { NSLocalizedString("privacy.data", bundle: b, comment: "") }
+    static var privacyLocalTitle: String { NSLocalizedString("privacy.localTitle", bundle: b, comment: "") }
+    static var privacyLocal: String { NSLocalizedString("privacy.local", bundle: b, comment: "") }
+    static var privacyContactTitle: String { NSLocalizedString("privacy.contactTitle", bundle: b, comment: "") }
+
     // MARK: - Import
     static var selectFormulaImage: String { NSLocalizedString("import.selectFormulaImage", bundle: b, comment: "") }
     static var couldNotLoad: String { NSLocalizedString("import.couldNotLoad", bundle: b, comment: "") }

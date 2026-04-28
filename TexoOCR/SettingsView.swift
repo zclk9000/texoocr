@@ -172,6 +172,8 @@ class ShortcutCaptureView: NSView {
 // MARK: - About
 
 struct AboutView: View {
+    @State private var showPrivacyPolicy = false
+
     var body: some View {
         VStack(spacing: 14) {
             Spacer()
@@ -180,7 +182,7 @@ struct AboutView: View {
                 .font(.system(size: 40, weight: .light))
                 .foregroundStyle(.blue)
 
-            Text("Texo OCR")
+            Text("TexoOCR")
                 .font(.system(size: 18, weight: .bold, design: .rounded))
 
             Text("LaTeX Formula Recognition")
@@ -200,9 +202,71 @@ struct AboutView: View {
             .font(.system(size: 11))
             .foregroundStyle(.secondary)
 
+            Button(L.privacyPolicy) {
+                showPrivacyPolicy = true
+            }
+            .font(.system(size: 11))
+            .buttonStyle(.plain)
+            .foregroundStyle(.blue)
+
             Spacer().frame(height: 4)
         }
         .frame(maxWidth: .infinity)
         .padding()
+        .sheet(isPresented: $showPrivacyPolicy) {
+            PrivacyPolicyView()
+        }
+    }
+}
+
+struct PrivacyPolicyView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text(L.privacyPolicy)
+                    .font(.headline)
+                Spacer()
+                Button { dismiss() } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.secondary)
+                        .font(.title2)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding()
+
+            Divider()
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Group {
+                        Text(L.privacyOverviewTitle)
+                            .font(.system(size: 14, weight: .semibold))
+                        Text(L.privacyOverview)
+                            .font(.system(size: 12))
+
+                        Text(L.privacyDataTitle)
+                            .font(.system(size: 14, weight: .semibold))
+                        Text(L.privacyData)
+                            .font(.system(size: 12))
+
+                        Text(L.privacyLocalTitle)
+                            .font(.system(size: 14, weight: .semibold))
+                        Text(L.privacyLocal)
+                            .font(.system(size: 12))
+
+                        Text(L.privacyContactTitle)
+                            .font(.system(size: 14, weight: .semibold))
+                        Text("zclk9000@me.com")
+                            .font(.system(size: 12))
+                    }
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .frame(width: 420, height: 400)
     }
 }
