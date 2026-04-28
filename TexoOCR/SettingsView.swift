@@ -197,12 +197,16 @@ struct AboutView: View {
             Spacer()
 
             VStack(spacing: 4) {
-                Label("FormulaNet", systemImage: "brain")
+                Label("Powered by FormulaNet / Texo", systemImage: "brain")
                 Label("ONNX Runtime (MIT)", systemImage: "cpu")
                 Label("KaTeX (MIT)", systemImage: "function")
             }
             .font(.system(size: 11))
             .foregroundStyle(.secondary)
+
+            Link("texocr.netlify.app", destination: URL(string: "https://texocr.netlify.app")!)
+                .font(.system(size: 11))
+                .foregroundStyle(.blue)
 
             HStack(spacing: 16) {
                 Button(L.privacyPolicy) {
@@ -320,9 +324,9 @@ struct LicensesView: View {
                     Divider()
 
                     licenseSection(
-                        name: "FormulaNet",
+                        name: "FormulaNet / Texo",
                         url: "https://github.com/Texo-AI/FormulaNet",
-                        license: "Model weights used for formula recognition.\nSee project repository for license details."
+                        license: "LGPL License (granted for this project)\nModel weights used for formula recognition.\nOnline service: https://texocr.netlify.app"
                     )
                 }
                 .padding()
