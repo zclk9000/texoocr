@@ -32,7 +32,7 @@ Available on the [Mac App Store](#) (link coming soon).
 
 ## Acknowledgments
 
-- **[FormulaNet / Texo](https://github.com/Texo-AI/FormulaNet)** — Formula recognition model (LGPL, used with permission)
+- **[alephpi / Texo](https://github.com/alephpi/Texo)** — Formula recognition model (LGPL, used with permission)
 - **[Texo OCR Web](https://texocr.netlify.app)** — Online formula recognition service by the FormulaNet author
 - **[ONNX Runtime](https://github.com/microsoft/onnxruntime)** — On-device inference engine (MIT)
 - **[KaTeX](https://github.com/KaTeX/KaTeX)** — LaTeX rendering (MIT)
