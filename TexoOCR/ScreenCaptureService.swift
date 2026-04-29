@@ -25,19 +25,18 @@ class ScreenCaptureService {
 
     /// Open System Settings to Accessibility pane
     static func requestAccessibility() {
-        // AXIsProcessTrustedWithOptions with prompt — this is the official API
-        // It shows a system dialog directing user to grant permission
-        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
-        let _ = AXIsProcessTrustedWithOptions(options)
+        // Delay to let the menu popover close first, otherwise the action gets cancelled
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            // AXIsProcessTrustedWithOptions with prompt — shows system dialog
+            let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
+            let _ = AXIsProcessTrustedWithOptions(options)
 
-        // Fallback: try multiple URL schemes for different macOS versions
-        let urls = [
-            "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",  // macOS 12-
-            "x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_Accessibility",  // macOS 13+
-        ]
-        for urlString in urls {
-            if let url = URL(string: urlString) {
-                if NSWorkspace.shared.open(url) { break }
+            // Fallback: open System Settings via shell command (works in sandbox)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let task = Process()
+                task.launchPath = "/usr/bin/open"
+                task.arguments = ["x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"]
+                try? task.run()
             }
         }
     }
