@@ -25,13 +25,20 @@ class ScreenCaptureService {
 
     /// Open System Settings to Accessibility pane
     static func requestAccessibility() {
-        // Try the prompt first
+        // AXIsProcessTrustedWithOptions with prompt — this is the official API
+        // It shows a system dialog directing user to grant permission
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
-        AXIsProcessTrustedWithOptions(options)
+        let _ = AXIsProcessTrustedWithOptions(options)
 
-        // Also open System Settings directly as fallback
-        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
-            NSWorkspace.shared.open(url)
+        // Fallback: try multiple URL schemes for different macOS versions
+        let urls = [
+            "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",  // macOS 12-
+            "x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_Accessibility",  // macOS 13+
+        ]
+        for urlString in urls {
+            if let url = URL(string: urlString) {
+                if NSWorkspace.shared.open(url) { break }
+            }
         }
     }
 
