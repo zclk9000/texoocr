@@ -23,10 +23,16 @@ class ScreenCaptureService {
         AXIsProcessTrusted()
     }
 
-    /// Prompt user to grant Accessibility permission
+    /// Open System Settings to Accessibility pane
     static func requestAccessibility() {
+        // Try the prompt first
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
         AXIsProcessTrustedWithOptions(options)
+
+        // Also open System Settings directly as fallback
+        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
+            NSWorkspace.shared.open(url)
+        }
     }
 
     func captureRegion() async throws -> NSImage {
