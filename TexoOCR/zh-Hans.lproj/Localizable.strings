@@ -62,6 +62,12 @@
 "privacy.local" = "识别历史（截取的图片及 LaTeX 结果）存储在应用的沙盒容器中。偏好设置通过 macOS UserDefaults 存储。这些数据不会离开您的设备。您可以随时清除历史记录。";
 "privacy.contactTitle" = "联系方式";
 
+/* Store / Pro */
+"store.upgradePro" = "升级 Pro";
+"store.restore" = "恢复购买";
+"store.todayRemaining" = "今日剩余：";
+"store.limitReached" = "今日免费次数已用完（20次/天），升级 Pro 无限使用。";
+
 /* Accessibility */
 "accessibility.required" = "需要辅助功能权限以进行截图";
 "accessibility.grant" = "授权";

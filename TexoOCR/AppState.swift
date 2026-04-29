@@ -183,6 +183,13 @@ class AppState: ObservableObject {
     func processImage(_ image: NSImage) {
         guard let engine = ocrEngine, !isProcessing else { return }
 
+        // Check daily usage limit
+        let store = StoreManager.shared
+        guard store.canUse else {
+            status = .error(L.dailyLimitReached)
+            return
+        }
+
         let imageData = image.tiffRepresentation
         isProcessing = true
         status = .recognizing
@@ -198,6 +205,7 @@ class AppState: ObservableObject {
                 self.lastResult = latex
                 self.isProcessing = false
                 self.status = .ready
+                store.recordUsage()
 
                 let item = HistoryItem(latex: latex, imageData: imageData)
                 self.history.insert(item, at: 0)

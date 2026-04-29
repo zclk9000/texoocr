@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuBarView: View {
     @EnvironmentObject var appState: AppState
+    @ObservedObject var store = StoreManager.shared
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
@@ -141,6 +142,36 @@ struct MenuBarView: View {
             }
 
             Divider().padding(.horizontal, 8)
+
+            // Usage / Pro status
+            if !store.isPro {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.orange)
+                        .frame(width: 18)
+                    Text("\(L.todayRemaining)\(store.remainingToday)/\(StoreManager.dailyLimit)")
+                        .font(.system(size: 11))
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Button {
+                        Task { try? await store.purchase() }
+                    } label: {
+                        Text(L.upgradePro)
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 3)
+                            .background(.orange)
+                            .clipShape(Capsule())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+
+                Divider().padding(.horizontal, 8)
+            }
 
             // Auto-detect toggle
             HStack(spacing: 8) {

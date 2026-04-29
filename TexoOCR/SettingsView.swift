@@ -98,6 +98,23 @@ struct GeneralSettingsView: View {
             )) {
                 Label(L.launchAtLogin, systemImage: "power")
             }
+
+            if !StoreManager.shared.isPro {
+                Button {
+                    Task { try? await StoreManager.shared.purchase() }
+                } label: {
+                    Label(L.upgradePro, systemImage: "star.fill")
+                }
+
+                Button {
+                    Task { await StoreManager.shared.restorePurchases() }
+                } label: {
+                    Label(L.restorePurchases, systemImage: "arrow.clockwise")
+                }
+            } else {
+                Label("Pro ✓", systemImage: "checkmark.seal.fill")
+                    .foregroundStyle(.green)
+            }
         }
         .formStyle(.grouped)
     }

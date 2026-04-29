@@ -118,12 +118,8 @@ struct LaTeXRenderView: NSViewRepresentable {
                 align-items: flex-start;
                 background: transparent;
             }
-            .katex { font-size: 1.2em; }
+            .katex { font-size: 1.2em; color: #000000; }
             .katex-display { margin: 0; text-align: center; }
-            @media (prefers-color-scheme: dark) {
-                body { color: #e0e0e0; }
-                .katex { color: #e0e0e0; }
-            }
             #error { color: #e74c3c; font-family: system-ui; font-size: 13px; }
         </style>
         </head>

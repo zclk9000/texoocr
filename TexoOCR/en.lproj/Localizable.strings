@@ -62,6 +62,12 @@
 "privacy.local" = "Recognition history (captured images and LaTeX results) is stored locally in the app's sandboxed container. Your preferences are stored via macOS UserDefaults. This data never leaves your device. You can clear history at any time.";
 "privacy.contactTitle" = "Contact";
 
+/* Store / Pro */
+"store.upgradePro" = "Upgrade to Pro";
+"store.restore" = "Restore Purchases";
+"store.todayRemaining" = "Today: ";
+"store.limitReached" = "Daily limit reached (20/day). Upgrade to Pro for unlimited use.";
+
 /* Accessibility */
 "accessibility.required" = "Accessibility permission required for screen capture";
 "accessibility.grant" = "Grant";
