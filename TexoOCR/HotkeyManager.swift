@@ -1,8 +1,13 @@
 import AppKit
+import Carbon.HIToolbox
 
 class HotkeyManager {
-    private var globalMonitor: Any?
-    private var localMonitor: Any?
+    private static var nextID: UInt32 = 1
+    private static var handlers: [UInt32: () -> Void] = [:]
+    private static var handlerInstalled = false
+
+    private let hotKeyID: UInt32
+    private var hotKeyRef: EventHotKeyRef?
     private let action: () -> Void
 
     var keyCode: UInt16
@@ -12,32 +17,96 @@ class HotkeyManager {
         self.keyCode = keyCode
         self.modifiers = modifiers
         self.action = action
-        registerMonitors()
+
+        self.hotKeyID = Self.nextID
+        Self.nextID += 1
+        Self.handlers[self.hotKeyID] = action
+
+        Self.installEventHandlerIfNeeded()
+        register()
     }
 
     func updateShortcut(keyCode: UInt16, modifiers: NSEvent.ModifierFlags) {
         self.keyCode = keyCode
         self.modifiers = modifiers
+        register()
     }
 
-    private func registerMonitors() {
-        globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
-            self?.handleKeyEvent(event)
-        }
+    // MARK: - Carbon registration
 
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
-            self?.handleKeyEvent(event)
-            return event
+    private func register() {
+        unregister()
+
+        var ref: EventHotKeyRef?
+        let signature: OSType = 0x54584F43 // 'TXOC'
+        let id = EventHotKeyID(signature: signature, id: hotKeyID)
+        let carbonMods = Self.carbonModifiers(from: modifiers)
+        let status = RegisterEventHotKey(
+            UInt32(keyCode),
+            carbonMods,
+            id,
+            GetApplicationEventTarget(),
+            0,
+            &ref
+        )
+        if status == noErr {
+            hotKeyRef = ref
         }
     }
 
-    private func handleKeyEvent(_ event: NSEvent) {
-        let required: NSEvent.ModifierFlags = [.command, .shift, .option, .control]
-        let eventMods = event.modifierFlags.intersection(required)
-        let targetMods = modifiers.intersection(required)
+    private func unregister() {
+        if let ref = hotKeyRef {
+            UnregisterEventHotKey(ref)
+            hotKeyRef = nil
+        }
+    }
 
-        guard eventMods == targetMods, event.keyCode == keyCode else { return }
-        action()
+    private static func installEventHandlerIfNeeded() {
+        guard !handlerInstalled else { return }
+        handlerInstalled = true
+
+        var eventType = EventTypeSpec(
+            eventClass: OSType(kEventClassKeyboard),
+            eventKind: UInt32(kEventHotKeyPressed)
+        )
+
+        let callback: EventHandlerUPP = { _, eventRef, _ -> OSStatus in
+            guard let eventRef else { return noErr }
+            var hkID = EventHotKeyID()
+            let result = GetEventParameter(
+                eventRef,
+                EventParamName(kEventParamDirectObject),
+                EventParamType(typeEventHotKeyID),
+                nil,
+                MemoryLayout<EventHotKeyID>.size,
+                nil,
+                &hkID
+            )
+            guard result == noErr else { return noErr }
+            let id = hkID.id
+            DispatchQueue.main.async {
+                HotkeyManager.handlers[id]?()
+            }
+            return noErr
+        }
+
+        InstallEventHandler(
+            GetApplicationEventTarget(),
+            callback,
+            1,
+            &eventType,
+            nil,
+            nil
+        )
+    }
+
+    private static func carbonModifiers(from mods: NSEvent.ModifierFlags) -> UInt32 {
+        var carbon: UInt32 = 0
+        if mods.contains(.command) { carbon |= UInt32(cmdKey) }
+        if mods.contains(.shift)   { carbon |= UInt32(shiftKey) }
+        if mods.contains(.option)  { carbon |= UInt32(optionKey) }
+        if mods.contains(.control) { carbon |= UInt32(controlKey) }
+        return carbon
     }
 
     // MARK: - Display helpers
@@ -71,7 +140,7 @@ class HotkeyManager {
     }
 
     deinit {
-        if let m = globalMonitor { NSEvent.removeMonitor(m) }
-        if let m = localMonitor { NSEvent.removeMonitor(m) }
+        unregister()
+        Self.handlers.removeValue(forKey: hotKeyID)
     }
 }

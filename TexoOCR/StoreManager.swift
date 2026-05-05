@@ -1,11 +1,12 @@
 import Foundation
+import SwiftUI
 import StoreKit
 
 @MainActor
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
-    static let productID = "com.zclk9000.texoocr.pro"
-    static let dailyLimit = 20
+    nonisolated static let productID = "com.zclk9000.texoocr.prounlock"
+    nonisolated static let dailyLimit = 20
 
     @Published var isPro = false
     @Published var todayUsageCount = 0
@@ -71,11 +72,13 @@ class StoreManager: ObservableObject {
     }
 
     private func listenForTransactions() {
-        Task.detached {
+        Task.detached { @Sendable in
             for await result in Transaction.updates {
                 if case .verified(let transaction) = result,
-                   transaction.productID == Self.productID {
-                    await MainActor.run { self.isPro = true }
+                   transaction.productID == StoreManager.productID {
+                    await MainActor.run {
+                        StoreManager.shared.isPro = true
+                    }
                     await transaction.finish()
                 }
             }

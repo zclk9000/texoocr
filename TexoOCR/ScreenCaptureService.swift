@@ -1,5 +1,4 @@
 import AppKit
-import Carbon.HIToolbox
 
 @MainActor
 class ScreenCaptureService {
@@ -7,57 +6,38 @@ class ScreenCaptureService {
     enum CaptureError: LocalizedError {
         case cancelled
         case noImage
-        case accessibilityDenied
+        case launchFailed
 
         var errorDescription: String? {
             switch self {
             case .cancelled: return "Screen capture was cancelled"
             case .noImage: return "No image found after capture"
-            case .accessibilityDenied: return "Accessibility permission required"
-            }
-        }
-    }
-
-    /// Check if Accessibility permission is granted
-    static var isAccessibilityGranted: Bool {
-        AXIsProcessTrusted()
-    }
-
-    /// Open System Settings to Accessibility pane
-    static func requestAccessibility() {
-        // Delay to let the menu popover close first, otherwise the action gets cancelled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            // AXIsProcessTrustedWithOptions with prompt — shows system dialog
-            let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
-            let _ = AXIsProcessTrustedWithOptions(options)
-
-            // Fallback: open System Settings via shell command (works in sandbox)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                let task = Process()
-                task.launchPath = "/usr/bin/open"
-                task.arguments = ["x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"]
-                try? task.run()
+            case .launchFailed: return "Could not launch screencapture tool"
             }
         }
     }
 
     func captureRegion() async throws -> NSImage {
-        // Check Accessibility permission first
-        guard Self.isAccessibilityGranted else {
-            Self.requestAccessibility()
-            throw CaptureError.accessibilityDenied
-        }
-
         let beforeCount = NSPasteboard.general.changeCount
 
-        // Simulate Cmd+Shift+Ctrl+4 to trigger system screenshot to clipboard
-        simulateScreenshotShortcut()
+        // Use the system screencapture tool — interactive region selection,
+        // copy result to clipboard, suppress sound.
+        let task = Process()
+        task.launchPath = "/usr/sbin/screencapture"
+        task.arguments = ["-i", "-c", "-x"]
 
-        // Wait for user to complete the screenshot (up to 30 seconds)
-        for _ in 0..<300 {
-            try await Task.sleep(nanoseconds: 100_000_000) // 100ms
-            if NSPasteboard.general.changeCount != beforeCount {
-                break
+        do {
+            try task.run()
+        } catch {
+            throw CaptureError.launchFailed
+        }
+
+        // Wait off the main thread for the user to finish the selection
+        // (or cancel with Esc).
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            DispatchQueue.global(qos: .userInitiated).async {
+                task.waitUntilExit()
+                continuation.resume()
             }
         }
 
@@ -70,21 +50,5 @@ class ScreenCaptureService {
         }
 
         return image
-    }
-
-    private func simulateScreenshotShortcut() {
-        // Cmd+Shift+Ctrl+4: screenshot region to clipboard
-        let keyCode = CGKeyCode(0x15) // key code for '4'
-
-        let flags: CGEventFlags = [.maskCommand, .maskShift, .maskControl]
-
-        if let keyDown = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: true) {
-            keyDown.flags = flags
-            keyDown.post(tap: .cghidEventTap)
-        }
-        if let keyUp = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false) {
-            keyUp.flags = flags
-            keyUp.post(tap: .cghidEventTap)
-        }
     }
 }

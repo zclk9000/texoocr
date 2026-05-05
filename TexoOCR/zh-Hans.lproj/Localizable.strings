@@ -68,10 +68,6 @@
 "store.todayRemaining" = "今日剩余：";
 "store.limitReached" = "今日免费次数已用完（20次/天），升级 Pro 无限使用。";
 
-/* Accessibility */
-"accessibility.required" = "需要辅助功能权限以进行截图";
-"accessibility.grant" = "授权";
-
 /* About */
 "about.licenses" = "开源许可";
 

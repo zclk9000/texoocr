@@ -68,10 +68,6 @@
 "store.todayRemaining" = "Today: ";
 "store.limitReached" = "Daily limit reached (20/day). Upgrade to Pro for unlimited use.";
 
-/* Accessibility */
-"accessibility.required" = "Accessibility permission required for screen capture";
-"accessibility.grant" = "Grant";
-
 /* About */
 "about.licenses" = "Licenses";
 

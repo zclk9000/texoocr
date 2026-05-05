@@ -97,10 +97,6 @@ enum L {
     static var todayRemaining: String { NSLocalizedString("store.todayRemaining", bundle: b, comment: "") }
     static var dailyLimitReached: String { NSLocalizedString("store.limitReached", bundle: b, comment: "") }
 
-    // MARK: - Accessibility
-    static var accessibilityRequired: String { NSLocalizedString("accessibility.required", bundle: b, comment: "") }
-    static var grant: String { NSLocalizedString("accessibility.grant", bundle: b, comment: "") }
-
     // MARK: - About
     static var licenses: String { NSLocalizedString("about.licenses", bundle: b, comment: "") }
 

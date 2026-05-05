@@ -13,8 +13,13 @@ struct TexoOCRApp: App {
                 .environmentObject(appState)
                 .id(localization.bundle)
         } label: {
-            Image(systemName: appState.isProcessing ? "sparkle.magnifyingglass" : "camera.metering.matrix")
-                .symbolRenderingMode(.hierarchical)
+            if appState.isProcessing {
+                Image(systemName: "sparkle.magnifyingglass")
+                    .symbolRenderingMode(.hierarchical)
+            } else {
+                Image("MenuBarIcon")
+                    .renderingMode(.template)
+            }
         }
         .menuBarExtraStyle(.window)
 
